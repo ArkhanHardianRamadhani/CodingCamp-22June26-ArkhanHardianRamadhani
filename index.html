@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense &amp; Budget Visualizer</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="app-title">Expense &amp; Budget Visualizer</h1>
+      </div>
+      <div class="header-right">
+        <div class="balance-display">
+          <span class="balance-label">Total Expenses</span>
+          <span class="balance-value" id="totalBalance">Rp 0,00</span>
+        </div>
+        <button class="btn-theme" id="themeToggleBtn" aria-label="Toggle theme">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- LEFT COLUMN: Form + Categories + Spending Limit -->
+      <aside class="left-panel">
+        <!-- Add Transaction Form -->
+        <section class="card">
+          <h2 class="card-title">Add Transaction</h2>
+          <form id="transactionForm" novalidate>
+            <div class="form-group">
+              <label for="itemName">Item Name</label>
+              <input
+                type="text"
+                id="itemName"
+                placeholder="e.g. Lunch"
+                maxlength="100"
+                autocomplete="off"
+              />
+              <span class="error-msg" id="itemName-error"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="amount">Amount (Rp)</label>
+              <input
+                type="text"
+                id="amount"
+                placeholder="e.g. 15000"
+                autocomplete="off"
+                inputmode="decimal"
+              />
+              <span class="error-msg" id="amount-error"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select id="category">
+                <!-- filled by JS -->
+              </select>
+              <span class="error-msg" id="category-error"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              + Add Transaction
+            </button>
+          </form>
+        </section>
+
+        <!-- Custom Categories -->
+        <section class="card">
+          <h2 class="card-title">Custom Categories</h2>
+          <div class="form-group">
+            <input
+              type="text"
+              id="newCategoryInput"
+              placeholder="New category name"
+              maxlength="50"
+              autocomplete="off"
+            />
+            <span class="error-msg" id="category-custom-error"></span>
+          </div>
+          <button class="btn btn-secondary btn-full" id="addCategoryBtn">
+            + Add Category
+          </button>
+        </section>
+
+        <!-- Spending Limit -->
+        <section class="card">
+          <h2 class="card-title">Spending Limit</h2>
+          <div class="form-group">
+            <label for="spendingLimitInput">Limit per Transaction (Rp)</label>
+            <input
+              type="text"
+              id="spendingLimitInput"
+              placeholder="e.g. 50000"
+              inputmode="decimal"
+              autocomplete="off"
+            />
+            <span class="error-msg" id="spending-limit-error"></span>
+          </div>
+          <div class="spending-limit-actions">
+            <button class="btn btn-primary" id="spendingLimitBtn">Save</button>
+            <button class="btn btn-outline" id="resetLimitBtn">Reset</button>
+          </div>
+          <p class="spending-limit-info" id="currentLimitInfo"></p>
+        </section>
+      </aside>
+
+      <!-- RIGHT COLUMN: List + Chart + Monthly Summary -->
+      <section class="right-panel">
+        <!-- Transaction List -->
+        <div class="card">
+          <div class="list-header">
+            <h2 class="card-title">Transactions</h2>
+            <div class="sort-control">
+              <label for="sortSelect" class="sort-label">Sort by:</label>
+              <select id="sortSelect">
+                <option value="default">Latest</option>
+                <option value="amount-asc">Amount ↑</option>
+                <option value="amount-desc">Amount ↓</option>
+                <option value="category-az">Category A-Z</option>
+                <option value="category-za">Category Z-A</option>
+              </select>
+            </div>
+          </div>
+          <div class="transaction-list" id="transactionList">
+            <!-- filled by JS -->
+          </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="card">
+          <h2 class="card-title">Spending by Category</h2>
+          <div class="chart-container" id="chartContainer">
+            <canvas id="pieChart"></canvas>
+            <p class="chart-placeholder" id="chartPlaceholder">
+              No data to display
+            </p>
+          </div>
+        </div>
+
+        <!-- Monthly Summary -->
+        <div class="card">
+          <h2 class="card-title">Monthly Summary</h2>
+          <div id="monthlySummary">
+            <!-- filled by JS -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>
